@@ -1,0 +1,23 @@
+[gd_scene load_steps=4 format=3 uid="uid://brqgksl3ebo11"]
+
+[ext_resource type="Texture2D" uid="uid://h4mb3yr7q58f" path="res://assets/my pixel art til godot/slime_purple (2).png" id="1_7vkmm"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_peoqg"]
+atlas = ExtResource("1_7vkmm")
+region = Rect2(0, 0, 96, 72)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_e3h4a"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_peoqg")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[node name="s_slime" type="Node2D"]
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+sprite_frames = SubResource("SpriteFrames_e3h4a")

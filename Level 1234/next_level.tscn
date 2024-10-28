@@ -1,0 +1,58 @@
+[gd_scene load_steps=6 format=3 uid="uid://dew0npylqgppn"]
+
+[ext_resource type="Texture2D" uid="uid://qasnmikttorh" path="res://assets/sprites/Nyt Projekt (5) (2).png" id="1_0fapf"]
+
+[sub_resource type="GDScript" id="GDScript_ldfwc"]
+script/source = "extends Area2D
+@onready var timer: Timer = $Timer
+
+const FILE_BEGIN = \"res://levels/level_\"
+
+func _on_body_entered(body: Node2D) -> void:
+	if body.is_in_group(\"Player\"):
+		var current_scene_file = get_tree().current_scene.scene_file_path
+		var next_level_number = current_scene_file.to_int() + 1
+		
+		var next_level_path = \"res://levels/level_\" + str(next_level_number) + \".tscn\"
+		get_tree().change_scene_to_file(next_level_path)
+"
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_adua0"]
+radius = 9.0
+height = 28.0
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_n7goe"]
+atlas = ExtResource("1_0fapf")
+region = Rect2(0, 0, 32, 32)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_em6me"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_n7goe")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[node name="next level" type="Area2D"]
+top_level = true
+light_mask = 2
+position = Vector2(390, 143)
+script = SubResource("GDScript_ldfwc")
+
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="."]
+position = Vector2(0, 1)
+shape = SubResource("CapsuleShape2D_adua0")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="CollisionShape2D2"]
+position = Vector2(0, -1)
+sprite_frames = SubResource("SpriteFrames_em6me")
+
+[node name="Timer" type="Timer" parent="."]
+wait_time = 3.0
+one_shot = true
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]
+[connection signal="body_exited" from="." to="." method="_on_body_exited"]

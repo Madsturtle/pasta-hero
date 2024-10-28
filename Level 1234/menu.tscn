@@ -1,0 +1,95 @@
+[gd_scene load_steps=6 format=3 uid="uid://c753nubpe54r5"]
+
+[ext_resource type="FontFile" uid="uid://cin75jg6ch6xt" path="res://assets/fonts/PixelOperator8-Bold.ttf" id="2_3g3fa"]
+[ext_resource type="Texture2D" uid="uid://cse55u6qo4xnn" path="res://assets/fonts/blue-sky-background-in-pixel-art-style-vector.jpg" id="3_6eijf"]
+[ext_resource type="AudioStream" uid="uid://b8x0g4k38nvm3" path="res://assets/music/The-Plastered-Pelicans-Polka.mp3" id="4_23lx2"]
+[ext_resource type="PackedScene" uid="uid://vdeo0wfi0v5b" path="res://pasta_man_menu.tscn" id="4_cm252"]
+
+[sub_resource type="GDScript" id="GDScript_w0ydt"]
+script/source = "extends Control
+
+
+
+func _on_play_pressed() -> void:
+	get_tree().change_scene_to_file(\"res://levels/level_1.tscn\")
+
+
+func _on_quit_pressed() -> void:
+	get_tree().quit()
+"
+
+[node name="Menu" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = SubResource("GDScript_w0ydt")
+
+[node name="MarginContainer" type="MarginContainer" parent="."]
+top_level = true
+layout_mode = 1
+anchors_preset = -1
+anchor_right = 0.059
+anchor_bottom = 0.08
+offset_left = 515.0
+offset_top = 305.0
+offset_right = 561.032
+offset_bottom = 333.16
+scale = Vector2(1.08, 1.10072)
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer"]
+layout_mode = 2
+
+[node name="play" type="Button" parent="MarginContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("2_3g3fa")
+text = "play"
+
+[node name="quit" type="Button" parent="MarginContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("2_3g3fa")
+text = "quit"
+
+[node name="TextureRect" type="TextureRect" parent="."]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = -0.339
+anchor_right = -0.339
+offset_left = 85.528
+offset_top = -252.0
+offset_right = 2005.53
+offset_bottom = 924.0
+texture = ExtResource("3_6eijf")
+
+[node name="music" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("4_23lx2")
+autoplay = true
+bus = &"music"
+
+[node name="Label" type="Label" parent="."]
+layout_mode = 0
+offset_left = 352.0
+offset_top = 151.0
+offset_right = 821.0
+offset_bottom = 258.0
+theme_override_fonts/font = ExtResource("2_3g3fa")
+theme_override_font_sizes/font_size = 50
+text = "Pasta hero"
+
+[node name="pasta man menu" parent="." instance=ExtResource("4_cm252")]
+position = Vector2(587, 243)
+scale = Vector2(5.60062, 4.49307)
+
+[node name="Label2" type="Label" parent="."]
+layout_mode = 0
+offset_left = 691.0
+offset_top = 624.0
+offset_right = 1149.0
+offset_bottom = 738.0
+theme_override_fonts/font = ExtResource("2_3g3fa")
+text = "made by turtleboy/spottedturtle"
+
+[connection signal="pressed" from="MarginContainer/VBoxContainer/play" to="." method="_on_play_pressed"]
+[connection signal="pressed" from="MarginContainer/VBoxContainer/quit" to="." method="_on_quit_pressed"]

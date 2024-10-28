@@ -1,0 +1,36 @@
+[gd_scene load_steps=6 format=3 uid="uid://0ufcq6r8bdbe"]
+
+[ext_resource type="Script" path="res://Level 1234/coin.gd" id="1_tcpka"]
+[ext_resource type="Texture2D" uid="uid://7q1gw7nyueuo" path="res://assets/sprites/my pixel art til godot/Nyt Projekt (5) (1).png" id="2_s2pca"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_mha3t"]
+atlas = ExtResource("2_s2pca")
+region = Rect2(0, 0, 32, 32)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_7rhhd"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_mha3t")
+}],
+"loop": true,
+"name": &"default",
+"speed": 8.0
+}]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_da6e0"]
+radius = 7.07107
+
+[node name="coin" type="Area2D"]
+collision_mask = 2
+script = ExtResource("1_tcpka")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+scale = Vector2(0.926146, 0.953125)
+sprite_frames = SubResource("SpriteFrames_7rhhd")
+frame_progress = 0.0752317
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_da6e0")
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]
